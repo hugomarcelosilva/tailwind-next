@@ -1,8 +1,9 @@
 import { Mail } from 'lucide-react'
 
-import { InputControl, InputPrefix, InputRoot } from '@/components/Input'
+import * as Input from '@/components/Form/Input'
 import { SettingsTabs } from '@/components/SettingsTabs'
 import * as FileInput from '@/components/Form/FileInput'
+import { Select } from '@/components/Form/Select'
 
 export default function Home() {
   return (
@@ -46,13 +47,13 @@ export default function Home() {
               Name
             </label>
             <div className="grid grid-cols-2 gap-6">
-              <InputRoot>
-                <InputControl id="firstName" defaultValue="Hugo" />
-              </InputRoot>
+              <Input.Root>
+                <Input.Control id="firstName" defaultValue="Hugo" />
+              </Input.Root>
 
-              <InputRoot>
-                <InputControl defaultValue="Marcelo" />
-              </InputRoot>
+              <Input.Root>
+                <Input.Control defaultValue="Marcelo" />
+              </Input.Root>
             </div>
           </div>
 
@@ -64,16 +65,16 @@ export default function Home() {
               Email address
             </label>
             <div className="flex gap-3">
-              <InputRoot>
-                <InputPrefix>
+              <Input.Root>
+                <Input.Prefix>
                   <Mail className="h-5 w-5 text-zinc-500" />
-                </InputPrefix>
-                <InputControl
+                </Input.Prefix>
+                <Input.Control
                   id="email"
                   type="email"
                   defaultValue="hugomarcelo91@gmail.com"
                 />
-              </InputRoot>
+              </Input.Root>
             </div>
           </div>
 
@@ -99,9 +100,9 @@ export default function Home() {
               Role
             </label>
             <div className="flex gap-3">
-              <InputRoot>
-                <InputControl id="role" defaultValue="DEV" />
-              </InputRoot>
+              <Input.Root>
+                <Input.Control id="role" defaultValue="DEV" />
+              </Input.Root>
             </div>
           </div>
 
@@ -112,8 +113,8 @@ export default function Home() {
             >
               Country
             </label>
-            <div className="grid grid-cols-2 gap-6">
-              <div></div>
+            <div className="flex gap-3">
+              <Select />
             </div>
           </div>
 
@@ -124,7 +125,7 @@ export default function Home() {
             >
               Timezone
             </label>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="flex gap-3">
               <div></div>
             </div>
           </div>
@@ -136,7 +137,7 @@ export default function Home() {
                 Write a short introduction.
               </span>
             </label>
-            <div className="grid grid-cols-2 gap-6">
+            <div className="flex gap-3">
               <div></div>
             </div>
           </div>
