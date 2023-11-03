@@ -3,7 +3,7 @@
 import * as Tabs from '@radix-ui/react-tabs'
 import * as ScrollArea from '@radix-ui/react-scroll-area'
 
-import { TabItem } from './TabItem'
+import { TabItem } from '../../components/TabItem'
 import { useState } from 'react'
 
 export function SettingsTabs() {

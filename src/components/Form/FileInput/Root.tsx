@@ -18,8 +18,8 @@ type FileInputContextType = {
 
 const FileInputContext = createContext({} as FileInputContextType)
 
-export function Root(props: RootProps) {
-  const id = useId()
+export function Root({ id, ...props }: RootProps) {
+  const customId = useId()
   const [files, setFiles] = useState<File[]>([])
 
   function onFilesSelected(files: File[], multiple: boolean) {
@@ -32,7 +32,9 @@ export function Root(props: RootProps) {
   }
 
   return (
-    <FileInputContext.Provider value={{ id, files, onFilesSelected }}>
+    <FileInputContext.Provider
+      value={{ id: id ?? customId, files, onFilesSelected }}
+    >
       <div {...props} />
     </FileInputContext.Provider>
   )

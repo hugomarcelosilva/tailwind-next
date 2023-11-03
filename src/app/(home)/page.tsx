@@ -1,12 +1,12 @@
 import { Bold, Italic, Link2, List, ListOrdered, Mail } from 'lucide-react'
 
 import * as Input from '@/components/Form/Input'
-import { SettingsTabs } from '@/components/SettingsTabs'
 import * as FileInput from '@/components/Form/FileInput'
-import { Select } from '@/components/Form/Select'
-import { SelectItem } from '@/components/Form/Select/SelectItem'
+import * as Select from '@/components/Form/Select'
 import { Textarea } from '@/components/Form/Textarea'
 import { Button } from '@/components/Button'
+import { SettingsTabs } from './SettingsTabs'
+import { CountrySelect } from './CountrySelect'
 
 export default function Home() {
   return (
@@ -48,7 +48,12 @@ export default function Home() {
             </label>
             <div className="flex flex-col gap-6 lg:grid lg:grid-cols-2">
               <Input.Root>
-                <Input.Control id="firstName" defaultValue="Hugo" />
+                <Input.Control
+                  name="firstName"
+                  id="firstName"
+                  type="text"
+                  defaultValue="Hugo"
+                />
               </Input.Root>
 
               <div className="flex flex-col gap-3 lg:block">
@@ -60,7 +65,11 @@ export default function Home() {
                 </label>
 
                 <Input.Root>
-                  <Input.Control id="lastName" defaultValue="Marcelo" />
+                  <Input.Control
+                    name="lastName"
+                    type="text"
+                    defaultValue="Marcelo"
+                  />
                 </Input.Root>
               </div>
             </div>
@@ -79,6 +88,7 @@ export default function Home() {
                   <Mail className="h-5 w-5 text-zinc-500" />
                 </Input.Prefix>
                 <Input.Control
+                  name="email"
                   id="email"
                   type="email"
                   defaultValue="hugomarcelo91@gmail.com"
@@ -113,43 +123,43 @@ export default function Home() {
             </label>
             <div className="flex gap-3">
               <Input.Root>
-                <Input.Control id="role" defaultValue="DEV" />
+                <Input.Control name="role" id="role" defaultValue="DEV" />
               </Input.Root>
             </div>
           </div>
 
           <div className="flex flex-col gap-3 pt-5 lg:grid lg:grid-cols-form">
-            <label
-              htmlFor="country"
-              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
-            >
+            <span className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100">
               Country
-            </label>
-            <div className="flex gap-3">
-              <Select placeholder="Select a country...">
-                <SelectItem value="us" text="United States" />
-                <SelectItem value="br" text="Brazil" />
-              </Select>
-            </div>
+            </span>
+
+            <CountrySelect />
           </div>
 
           <div className="flex flex-col gap-3 pt-5 lg:grid lg:grid-cols-form">
-            <label
-              htmlFor="timezone"
-              className="text-sm font-medium text-zinc-700 dark:text-zinc-300"
-            >
+            <span className="flex flex-col text-sm font-medium leading-relaxed text-zinc-700 dark:text-zinc-100">
               Timezone
-            </label>
-            <Select placeholder="Select a timezone...">
-              <SelectItem
-                value="pst"
-                text="Pacific Standard Time (PST) UTC-08:00"
-              />
-              <SelectItem
-                value="brt"
-                text="Brasilia Time Zone (BRT) UTC-03:00"
-              />
-            </Select>
+            </span>
+            <Select.Root name="timezone">
+              <Select.Trigger>
+                <Select.Value placeholder="Select your timezone..." />
+              </Select.Trigger>
+
+              <Select.Content>
+                <Select.Item value="utc-8">
+                  <Select.ItemText>
+                    Pacific Standard Time (PST)
+                    <span className="text-sm text-zinc-500">UTC 08:00</span>
+                  </Select.ItemText>
+                </Select.Item>
+                <Select.Item value="utc-3">
+                  <Select.ItemText>
+                    Brasilia Time Zone (BRT)
+                    <span className="text-sm text-zinc-500">UTC -03:00</span>
+                  </Select.ItemText>
+                </Select.Item>
+              </Select.Content>
+            </Select.Root>
           </div>
 
           <div className="flex flex-col gap-3 pt-5 lg:grid lg:grid-cols-form">
@@ -164,10 +174,20 @@ export default function Home() {
             </label>
             <div className="space-y-3">
               <div className="flex flex-col gap-3 lg:grid lg:grid-cols-2">
-                <Select defaultValue="normal">
-                  <SelectItem value="normal" text="Normal Text" />
-                  <SelectItem value="md" text="Markdown" />
-                </Select>
+                <Select.Root defaultValue="normal">
+                  <Select.Trigger>
+                    <Select.Value />
+                  </Select.Trigger>
+
+                  <Select.Content>
+                    <Select.Item value="normal">
+                      <Select.ItemText>Normal text</Select.ItemText>
+                    </Select.Item>
+                    <Select.Item value="md">
+                      <Select.ItemText>Markdown</Select.ItemText>
+                    </Select.Item>
+                  </Select.Content>
+                </Select.Root>
 
                 <div className="flex items-center gap-1">
                   <Button variant="ghost" type="button">
@@ -208,7 +228,7 @@ export default function Home() {
                 Share a few snippets of your work.
               </span>
             </label>
-            <FileInput.Root>
+            <FileInput.Root id="projects">
               <FileInput.Trigger />
               <FileInput.FileList />
               <FileInput.Control multiple />

@@ -1,8 +1,8 @@
 import { CheckCircle2, Trash2, UploadCloud } from 'lucide-react'
 
-import { formatBytes } from '@/utils/format-bytes'
 import { Button } from '@/components/Button'
 import { tv, VariantProps } from 'tailwind-variants'
+import { useMemo } from 'react'
 
 const fileItem = tv({
   slots: {
@@ -41,6 +41,20 @@ export interface FileItemProps extends VariantProps<typeof fileItem> {
 }
 
 export function FileItem({ name, size, state }: FileItemProps) {
+  const uploadProgress = state === 'complete' ? '100%' : '25%'
+
+  const fileSize = useMemo(() => {
+    const fileSizeInKB = size / 1024
+
+    if (fileSizeInKB > 1024) {
+      const fileSizeInMB = fileSizeInKB / 1024
+
+      return fileSizeInMB.toFixed(1).concat(' MB')
+    }
+
+    return fileSizeInKB.toFixed(1).concat(' KB')
+  }, [size])
+
   const { container, icon, deleteButton } = fileItem({ state })
 
   return (
@@ -74,7 +88,7 @@ export function FileItem({ name, size, state }: FileItemProps) {
               {name}
             </span>
             <span className="text-sm text-zinc-700 dark:text-zinc-400">
-              {formatBytes(size)}
+              {fileSize}
             </span>
           </div>
 
@@ -82,11 +96,11 @@ export function FileItem({ name, size, state }: FileItemProps) {
             <div className="h-2 flex-1 rounded-full bg-zinc-100 dark:bg-zinc-600">
               <div
                 className="h-2 rounded-full bg-violet-600 dark:bg-violet-400"
-                style={{ width: state === 'complete' ? '100%' : '80%' }}
+                style={{ width: uploadProgress }}
               />
             </div>
             <span className="text-sm font-medium text-zinc-700 dark:text-zinc-300">
-              {state === 'complete' ? '100%' : '80%'}
+              {uploadProgress}
             </span>
           </div>
         </div>
